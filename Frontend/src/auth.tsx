@@ -1,7 +1,7 @@
 import "./auth.css";
-import {createSignal} from "solid-js";
+import {createSignal, Component } from "solid-js";
 
-function auth() {
+const auth: Component = () => {
     // Deklaracja zmiennej reaktywnej za pomocą createSignal
     const [email, setEmail] = createSignal("");
     const [password, setPassword] = createSignal("");
@@ -29,7 +29,6 @@ function auth() {
                                 placeholder="Email"
                                 required
                                 value={email()} // Połączenie wartości sygnału z input
-                                //use:validate={[userNameExists]}
                                 onInput={(e) => setEmail((e.target as HTMLInputElement).value)} // Aktualizacja sygnału
                                 class="border p-2 w-full"
                             />
@@ -43,8 +42,6 @@ function auth() {
                                 placeholder="Password"
                                 required
                                 minlength="8"
-                                //onInput={(e) => setFields("password", e.target.value)}
-                                //use:validate
                                 value={password()}
                                 onInput={(e) => setPassword((e.target as HTMLInputElement).value)}
                                 class="border p-2 w-full"
@@ -58,7 +55,6 @@ function auth() {
                                 name="confirmpassword"
                                 placeholder="Confirm Password"
                                 required
-                                //use:validate={[matchesPassword]}
                                 value={confirmPassword()}
                                 onInput={(e) => setConfirmPassword((e.target as HTMLInputElement).value)}
                                 class="border p-2 w-full"
