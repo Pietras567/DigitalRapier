@@ -17,7 +17,7 @@ const auth: Component = () => {
 
     return (
         <div class="h-screen flex justify-center items-center relative z-10">
-            <form onSubmit={handleSubmit} class="p-8 bg-white rounded shadow-md dark:bg-black dark:text-white">
+            <form onSubmit={handleSubmit} class="p-8 bg-white rounded shadow-md dark:bg-gray-900 dark:text-white">
                 <h1 class="text-center mb-4">Log In</h1>
                 <div class="mb-4">
                     Email: {email()} {/* Wyświetlanie aktualnej wartości */}
@@ -60,7 +60,7 @@ const auth: Component = () => {
                 {/*    <br/>*/}
                 {/*</div>*/}
 
-                <button type="submit" class="p-2 rounded shadow-md">Submit</button>
+                <button type="submit" class="p-2 rounded shadow-md bg-gray-50 dark:bg-gray-800">Submit</button>
             </form>
         </div>
     );
