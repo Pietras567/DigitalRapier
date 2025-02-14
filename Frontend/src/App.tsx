@@ -1,9 +1,8 @@
 import './App.css'
-import AccountPage from "./AccountPage.tsx";
-import {onMount} from "solid-js";
+import {Component, onMount} from "solid-js";
 
 
-export default function App() {
+const App: Component = (props) => {
     function checkLocalisation() {
         fetch('https://ipapi.co/json/')
             .then(function(response) {
@@ -27,8 +26,17 @@ export default function App() {
     })
 
     return (
-        <div>
-            <AccountPage/>
+        <div class="relative inset-0 h-full w-full bg-white bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] bg-[size:6rem_4rem]">
+            <div class="relative bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)]">
+                <nav class="absolute top-10 left-10">
+                    <a href="/" class="pl-6">Home</a>
+                    <a href="/account" class="pl-6">Account</a>
+                </nav>
+                {// @ts-ignore
+                props.children}
+            </div>
         </div>
     );
 }
+
+export default App;
