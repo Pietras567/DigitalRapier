@@ -48,9 +48,9 @@ const App: Component = (props) => {
                     <img src="src/assets/sun.svg" class="sun cursor-pointer" alt="" style="height: 60px"/>
                 </div>
 
-                <nav class="absolute top-10 left-10 z-50">
-                    <a href="/" class="pl-6">Home</a>
-                    <a href="/account" class="pl-6">Account</a>
+                <nav class="absolute top-10 left-10 z-50 flex">
+                    <a href="/" class="pl-6"><img src="src/assets/home.svg" class="home cursor-pointer" alt="Home Page" style="height: 60px"/></a>
+                    <a href="/account" class="pl-6"><img src="src/assets/account.svg" class="account cursor-pointer" alt="Account Page" style="height: 60px"/></a>
                 </nav>
                 {// @ts-ignore
                     props.children}
