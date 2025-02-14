@@ -12,6 +12,7 @@
     "@modular-forms/solid": "0.8.2",
     "@solidjs/router": "^0.15.3",
     "@tailwindcss/vite": "^4.0.6",
+    "leaflet": "^1.9.4",
     "solid-js": "^1.9.4",
     "tailwindcss": "^4.0.6"
   },

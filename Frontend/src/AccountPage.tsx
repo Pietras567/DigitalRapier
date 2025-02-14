@@ -1,4 +1,4 @@
-import {Switch, Match, onMount, createSignal, Component} from 'solid-js'
+import {Switch, Match, createSignal, Component} from 'solid-js'
 import './AccountPage.css'
 import { useAuth } from "./hooks/useAuth";
 import Auth from "./auth.tsx";
@@ -22,72 +22,55 @@ const AccountPage: Component = () => {
         }
     };
 
-    onMount(() => {
-        console.log("Komponent zamontowany!");
-
-        const script = document.createElement("script");
-        script.src = "app.js";
-        script.async = true;
-        document.body.appendChild(script);
-
-        return () => {
-            console.log("Komponent odmontowany!");
-            document.body.removeChild(script);
-        };
-    })
-
     return (
-                <div class="container mx-auto p-4">
-                    <div class="flex items-start mb-4 z-50 absolute right-10 top-10">
-                        <img src="src/assets/moon.svg" class="moon cursor-pointer" alt="" style="height: 60px"/>
-                        <img src="src/assets/sun.svg" class="sun cursor-pointer" alt="" style="height: 60px"/>
+        <div class="container mx-auto p-4">
+
+
+            <Switch>
+                {/* Pokazuj loader podczas sprawdzania autentykacji */}
+                <Match when={authStatus.loading && isAuthenticated() === null}>
+                    <div class="flex justify-center">
+                        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"/>
                     </div>
+                </Match>
 
-                    <Switch>
-                        {/* Pokazuj loader podczas sprawdzania autentykacji */}
-                        <Match when={authStatus.loading && isAuthenticated() === null}>
-                            <div class="flex justify-center">
-                                <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"/>
-                            </div>
-                        </Match>
+                {/* Pokazuj zawartość dla zalogowanych użytkowników */}
+                <Match when={isAuthenticated()}>
+                    <div>
+                        <button
+                            onClick={handleLogout}
+                            class="bg-red-500 text-white p-2 rounded"
+                        >
+                            Wyloguj się
+                        </button>
+                    </div>
+                </Match>
 
-                        {/* Pokazuj zawartość dla zalogowanych użytkowników */}
-                        <Match when={isAuthenticated()}>
-                            <div>
-                                <button
-                                    onClick={handleLogout}
-                                    class="bg-red-500 text-white p-2 rounded"
-                                >
-                                    Wyloguj się
-                                </button>
-                            </div>
-                        </Match>
+                {/* Pokazuj formularz logowania dla niezalogowanych */}
+                <Match when={!isAuthenticated()}>
+                    <div class="max-w-md mx-auto">
+                        <Switch>
+                            <Match when={!isRegistered()}>
+                                <Register/>
+                            </Match>
+                            <Match when={isRegistered()}>
+                                <Auth/>
+                            </Match>
+                        </Switch>
 
-                        {/* Pokazuj formularz logowania dla niezalogowanych */}
-                        <Match when={!isAuthenticated()}>
-                            <div class="max-w-md mx-auto">
-                                <Switch>
-                                    <Match when={!isRegistered()}>
-                                        <Register/>
-                                    </Match>
-                                    <Match when={isRegistered()}>
-                                        <Auth/>
-                                    </Match>
-                                </Switch>
-
-                                <div
-                                    class="text-center mt-4 absolute bottom-12 left-1/2 transform -translate-x-1/2 z-30">
-                                    <button
-                                        class="text-blue-500 underline"
-                                        onClick={() => setIsRegistered(!isRegistered())}
-                                    >
-                                        {isRegistered() ? "Nie masz konta? Zarejestruj się" : "Masz już konto? Zaloguj się"}
-                                    </button>
-                                </div>
-                            </div>
-                        </Match>
-                    </Switch>
-                </div>
+                        <div
+                            class="text-center mt-4 absolute bottom-12 left-1/2 transform -translate-x-1/2 z-30">
+                            <button
+                                class="text-blue-500 underline"
+                                onClick={() => setIsRegistered(!isRegistered())}
+                            >
+                                {isRegistered() ? "Nie masz konta? Zarejestruj się" : "Masz już konto? Zaloguj się"}
+                            </button>
+                        </div>
+                    </div>
+                </Match>
+            </Switch>
+        </div>
     );
 }
 
