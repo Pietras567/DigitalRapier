@@ -1,4 +1,4 @@
-import { Switch, Match  } from 'solid-js'
+import {Switch, Match, onMount} from 'solid-js'
 import './App.css'
 import { useAuth } from "./hooks/useAuth";
 import Auth from "./auth.tsx";
@@ -20,8 +20,27 @@ export default function App() {
         }
     };
 
+    onMount(() => {
+        console.log("Komponent zamontowany!");
+
+        const script = document.createElement("script");
+        script.src = "app.js";
+        script.async = true;
+        document.body.appendChild(script);
+
+        return () => {
+            console.log("Komponent odmontowany!");
+            document.body.removeChild(script);
+        };
+    })
+
     return (
         <div class="container mx-auto p-4">
+            <div class="flex items-start mb-4 z-50 absolute right-10 top-10">
+                <img src="src/assets/moon.svg" class="moon cursor-pointer" alt="" style="height: 60px"/>
+                <img src="src/assets/sun.svg" class="sun cursor-pointer" alt="" style="height: 60px"/>
+            </div>
+
             <Switch>
                 {/* Pokazuj loader podczas sprawdzania autentykacji */}
                 <Match when={authStatus.loading && isAuthenticated() === null}>
